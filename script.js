@@ -36,6 +36,12 @@ function updateDisplay (num) {
         displayNum[0].innerHTML = num;
         return;
     }
+
+    if (num == "clear") {
+        displayNum[0].innerHTML = 0;
+        return;
+    }
+
     displayNum[0].innerHTML += num;
     return;
 }
