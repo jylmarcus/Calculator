@@ -42,6 +42,10 @@ function updateDisplay (num) {
         return;
     }
 
+    if (displayNum[0].innerHTML.includes(".") && num == "."){
+        return;
+    }
+
     displayNum[0].innerHTML += num;
     return;
 }
