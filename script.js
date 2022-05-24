@@ -11,34 +11,121 @@ function multiply (a,b){
 }
 
 function divide (a,b){
+    if(b == 0){
+        errorFlag = 1;
+        return `To infinity and beyond!`;
+    }
     return a/b;
 }
 
-function operate (a, operator, b){
-    switch (operator) {
-        case `+`:
-            return add(a,b);
-            break;
-        case `-`:
-            return subtract(a,b);
-            break;
-        case `*`:
-            return multiply(a,b);
-            break;
-        case `/`:
-            return divide(a,b);
-            break;
+function operate (operator){
+    if(errorFlag == 1){
+        return;
     }
+
+    if(operatorFlag == 0){
+        prevNum[0].innerHTML = displayNum[0].innerHTML;
+        firstNum = displayNum[0].innerHTML;
+        displayNum[0].innerHTML = "0";
+        prevOperator[0].innerHTML = operator;
+        operatorFlag = 1;
+        return;
+    }
+
+    if(operator == `=`){
+        switch (prevOperator[0].innerHTML) {
+            case `+`:
+                prevNum[0].innerHTML += ` ${prevOperator[0].innerHTML} ${displayNum[0].innerHTML}`;
+                firstNum = String(add(Number(firstNum),Number(displayNum[0].innerHTML)));
+                prevOperator[0].innerHTML = "";
+                operatorFlag = 0;
+                displayNum[0].innerHTML = firstNum;
+                newNum = 1;
+                return;
+            case `-`:
+                prevNum[0].innerHTML += ` ${prevOperator[0].innerHTML} ${displayNum[0].innerHTML}`;
+                firstNum = String(subtract(Number(firstNum),Number(displayNum[0].innerHTML)));
+                prevOperator[0].innerHTML = "";
+                operatorFlag = 0;
+                displayNum[0].innerHTML = firstNum;
+                newNum = 1;
+                return;
+            case `*`:
+                prevNum[0].innerHTML += ` ${prevOperator[0].innerHTML} ${displayNum[0].innerHTML}`;
+                firstNum = String(multiply(Number(firstNum),Number(displayNum[0].innerHTML)));
+                prevOperator[0].innerHTML = "";
+                operatorFlag = 0;
+                displayNum[0].innerHTML = firstNum;
+                newNum = 1;
+                return;
+            case `/`:
+                prevNum[0].innerHTML += ` ${prevOperator[0].innerHTML} ${displayNum[0].innerHTML}`;
+                firstNum = String(divide(Number(firstNum),Number(displayNum[0].innerHTML)));
+                prevOperator[0].innerHTML = "";
+                operatorFlag = 0;
+                displayNum[0].innerHTML = firstNum;
+                newNum = 1;
+                return;
+        }
+    }
+
+    switch (prevOperator[0].innerHTML) {
+        case `+`:
+            prevNum[0].innerHTML += ` ${prevOperator[0].innerHTML} ${displayNum[0].innerHTML}`;
+            firstNum = String(add(Number(firstNum),Number(displayNum[0].innerHTML)));
+            console.log(firstNum);
+            prevOperator[0].innerHTML = operator;
+            displayNum[0].innerHTML = "0";
+            return;
+        case `-`:
+            prevNum[0].innerHTML += ` ${prevOperator[0].innerHTML} ${displayNum[0].innerHTML}`;
+            firstNum = String(subtract(Number(firstNum),Number(displayNum[0].innerHTML)));
+            console.log(firstNum);
+            prevOperator[0].innerHTML = operator;
+            displayNum[0].innerHTML = "0";
+            return;
+        case `*`:
+            prevNum[0].innerHTML += ` ${prevOperator[0].innerHTML} ${displayNum[0].innerHTML}`;
+            firstNum = String(multiply(Number(firstNum),Number(displayNum[0].innerHTML)));
+            console.log(firstNum);
+            prevOperator[0].innerHTML = operator;
+            displayNum[0].innerHTML = "0";
+            return;
+        case `/`:
+            prevNum[0].innerHTML += ` ${prevOperator[0].innerHTML} ${displayNum[0].innerHTML}`;
+            firstNum = String(divide(Number(firstNum),Number(displayNum[0].innerHTML)));
+            console.log(firstNum);
+            if (errorFlag == 1){
+                displayNum[0].innerHTML = firstNum;
+                return;
+            }
+            prevOperator[0].innerHTML = operator;
+            displayNum[0].innerHTML = "0";
+            return;
+    }
+
 }
 
 function updateDisplay (num) {
-    if (displayNum[0].innerHTML == "0") {
+    if ((displayNum[0].innerHTML == "0"|| newNum == 1 ) && errorFlag == 0) {
+        if(num == "."){
+            displayNum[0].innerHTML = `0 + {num}`;
+        }
         displayNum[0].innerHTML = num;
+        newNum = 0;
         return;
     }
 
     if (num == "clear") {
-        displayNum[0].innerHTML = 0;
+        displayNum[0].innerHTML = "0";
+        prevNum[0].innerHTML = "";
+        prevOperator[0].innerHTML = "";
+        operatorFlag = 0;
+        errorFlag = 0;
+        return;
+    }
+
+    if (errorFlag == 1) {
         return;
     }
 
@@ -50,10 +137,19 @@ function updateDisplay (num) {
     return;
 }
 
-let displayNum = document.getElementsByClassName("display-num");
-let buttons = document.querySelectorAll(".numButton");
-console.log(displayNum);
-buttons.forEach(button => button.addEventListener("click", function(){
+let displayNum = document.getElementsByClassName("displayNum");
+let prevNum = document.getElementsByClassName("prevNum");
+let prevOperator = document.getElementsByClassName("prevOperator");
+let numButtons = document.querySelectorAll(".numButton");
+let operatorButtons = document.querySelectorAll(".operatorButton");
+let operatorFlag = 0;
+let firstNum = "";
+let newNum = 0;
+let errorFlag = 0;
+
+numButtons.forEach(button => button.addEventListener("click", function(){
     updateDisplay(button.id);
 }));
-console.log(displayNum);
+operatorButtons.forEach(button => button.addEventListener("click", function(){
+    operate(button.id);
+}));
