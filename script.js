@@ -23,15 +23,6 @@ function operate (operator){
         return;
     }
 
-    if(operatorFlag == 0){
-        prevNum[0].innerHTML = displayNum[0].innerHTML;
-        firstNum = displayNum[0].innerHTML;
-        displayNum[0].innerHTML = "0";
-        prevOperator[0].innerHTML = operator;
-        operatorFlag = 1;
-        return;
-    }
-
     if(operator == `=`){
         switch (prevOperator[0].innerHTML) {
             case `+`:
@@ -66,7 +57,22 @@ function operate (operator){
                 displayNum[0].innerHTML = firstNum;
                 newNum = 1;
                 return;
+            case ``:
+                prevNum[0].innerHTML = `${displayNum[0].innerHTML} ${operator}`;
+                newNum = 1;
+                return;
+            default:
+                return;
         }
+    }
+
+    if(operatorFlag == 0){
+        prevNum[0].innerHTML = displayNum[0].innerHTML;
+        firstNum = displayNum[0].innerHTML;
+        displayNum[0].innerHTML = "0";
+        prevOperator[0].innerHTML = operator;
+        operatorFlag = 1;
+        return;
     }
 
     switch (prevOperator[0].innerHTML) {
@@ -107,21 +113,23 @@ function operate (operator){
 }
 
 function updateDisplay (num) {
-    if ((displayNum[0].innerHTML == "0"|| newNum == 1 ) && errorFlag == 0) {
-        if(num == "."){
-            displayNum[0].innerHTML = `0 + {num}`;
-        }
-        displayNum[0].innerHTML = num;
-        newNum = 0;
-        return;
-    }
-
     if (num == "clear") {
         displayNum[0].innerHTML = "0";
         prevNum[0].innerHTML = "";
         prevOperator[0].innerHTML = "";
         operatorFlag = 0;
         errorFlag = 0;
+        return;
+    }
+
+    if ((displayNum[0].innerHTML == "0"|| newNum == 1 ) && errorFlag == 0) {
+        if(num == "."){
+            displayNum[0].innerHTML = `0${num}`;
+            newNum = 0;
+            return;
+        }
+        displayNum[0].innerHTML = num;
+        newNum = 0;
         return;
     }
 
