@@ -28,7 +28,7 @@ function operate (operator){
             case `+`:
                 prevNum[0].innerHTML += ` ${prevOperator[0].innerHTML} ${displayNum[0].innerHTML}`;
                 firstNum = String(add(Number(firstNum),Number(displayNum[0].innerHTML)));
-                prevOperator[0].innerHTML = "";
+                prevOperator[0].innerHTML = " =";
                 operatorFlag = 0;
                 displayNum[0].innerHTML = firstNum;
                 newNum = 1;
@@ -36,23 +36,23 @@ function operate (operator){
             case `-`:
                 prevNum[0].innerHTML += ` ${prevOperator[0].innerHTML} ${displayNum[0].innerHTML}`;
                 firstNum = String(subtract(Number(firstNum),Number(displayNum[0].innerHTML)));
-                prevOperator[0].innerHTML = "";
+                prevOperator[0].innerHTML = " =";
                 operatorFlag = 0;
                 displayNum[0].innerHTML = firstNum;
                 newNum = 1;
                 return;
-            case `*`:
+            case `×`:
                 prevNum[0].innerHTML += ` ${prevOperator[0].innerHTML} ${displayNum[0].innerHTML}`;
                 firstNum = String(multiply(Number(firstNum),Number(displayNum[0].innerHTML)));
-                prevOperator[0].innerHTML = "";
+                prevOperator[0].innerHTML = " =";
                 operatorFlag = 0;
                 displayNum[0].innerHTML = firstNum;
                 newNum = 1;
                 return;
-            case `/`:
+            case `÷`:
                 prevNum[0].innerHTML += ` ${prevOperator[0].innerHTML} ${displayNum[0].innerHTML}`;
                 firstNum = String(divide(Number(firstNum),Number(displayNum[0].innerHTML)));
-                prevOperator[0].innerHTML = "";
+                prevOperator[0].innerHTML = " =";
                 operatorFlag = 0;
                 displayNum[0].innerHTML = firstNum;
                 newNum = 1;
@@ -90,14 +90,14 @@ function operate (operator){
             prevOperator[0].innerHTML = operator;
             displayNum[0].innerHTML = "0";
             return;
-        case `*`:
+        case `×`:
             prevNum[0].innerHTML += ` ${prevOperator[0].innerHTML} ${displayNum[0].innerHTML}`;
             firstNum = String(multiply(Number(firstNum),Number(displayNum[0].innerHTML)));
             console.log(firstNum);
             prevOperator[0].innerHTML = operator;
             displayNum[0].innerHTML = "0";
             return;
-        case `/`:
+        case `÷`:
             prevNum[0].innerHTML += ` ${prevOperator[0].innerHTML} ${displayNum[0].innerHTML}`;
             firstNum = String(divide(Number(firstNum),Number(displayNum[0].innerHTML)));
             console.log(firstNum);
