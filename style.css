@@ -1,7 +1,4 @@
 *{
-    border-width: 2px;
-    border-color: red;
-    border-style: solid;
     font-family: Helvetica, sans-serif;
 }
 
@@ -26,8 +23,7 @@
     top:50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    border-color: darkblue;
-
+    border: 1px solid grey;
 }
 
 .display {
@@ -69,7 +65,7 @@
     font-size: 30px;
     justify-content: center;
     align-items: center;
-    padding-top: 23px
+    padding-top: 17px
 }
 
 button{

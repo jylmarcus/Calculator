@@ -122,6 +122,14 @@ function updateDisplay (num) {
         return;
     }
 
+    if(num == `backspace`) {
+        displayNum[0].innerHTML = displayNum[0].innerHTML.slice(0,-1);
+        if (displayNum[0].innerHTML.length == 0){
+            displayNum[0].innerHTML = `0`;
+        }
+        return;
+    }
+
     if ((displayNum[0].innerHTML == "0"|| newNum == 1 ) && errorFlag == 0) {
         if(num == "."){
             displayNum[0].innerHTML = `0${num}`;
